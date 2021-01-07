@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapter(private val dataSet: List<String>,
-                    private val row_item_layout: Int,
+class CustomAdapter(private val row_item_layout: Int,
                     private val onItemClickListener: ((Int) -> Unit)?,
                     private val onItemLongClickListener: ((Int) -> Boolean)?):
-    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    ListAdapter<Element, CustomAdapter.ViewHolder>(ElementComparator()) {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -34,7 +35,7 @@ class CustomAdapter(private val dataSet: List<String>,
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text =dataSet[position]
+        viewHolder.textView.text =getItem(position).description
 
         // Set listeners on item (?.let content is executed only when listener is not null)
         onItemClickListener?.let {
@@ -46,7 +47,14 @@ class CustomAdapter(private val dataSet: List<String>,
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
 
+    class ElementComparator : DiffUtil.ItemCallback<Element>() {
+        override fun areItemsTheSame(oldItem: Element, newItem: Element): Boolean {
+            return oldItem.description == newItem.description
+        }
+
+        override fun areContentsTheSame(oldItem: Element, newItem: Element): Boolean {
+            return oldItem.description == newItem.description
+        }
+    }
 }
