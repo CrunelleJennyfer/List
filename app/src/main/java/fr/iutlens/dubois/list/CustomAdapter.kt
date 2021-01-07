@@ -35,7 +35,7 @@ class CustomAdapter(private val row_item_layout: Int,
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text =getItem(position).description
+        viewHolder.textView.text = getItem(position).description
 
         // Set listeners on item (?.let content is executed only when listener is not null)
         onItemClickListener?.let {
@@ -54,7 +54,7 @@ class CustomAdapter(private val row_item_layout: Int,
         }
 
         override fun areContentsTheSame(oldItem: Element, newItem: Element): Boolean {
-            return oldItem.description == newItem.description
+            return oldItem.description == newItem.description && oldItem.num == newItem.num
         }
     }
 }

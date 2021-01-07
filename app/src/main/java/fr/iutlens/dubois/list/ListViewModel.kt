@@ -10,15 +10,15 @@ import kotlinx.coroutines.supervisorScope
 
 class ListViewModel() : ViewModel() {
 
-    fun insert(database: AppDatabase, element: Element) =  viewModelScope.launch {
-        database.elementDao().insertAll(element)
+    fun insert(element: Element) =  viewModelScope.launch {
+        AppDatabase.getDatabase()?.elementDao()?.insertAll(element)
     }
 
-    fun delete(database: AppDatabase, element: Element) = viewModelScope.launch {
-        database.elementDao().delete(element)
+    fun delete(element: Element) = viewModelScope.launch {
+        AppDatabase.getDatabase()?.elementDao()?.delete(element)
     }
 
-    fun allElements(database: AppDatabase): LiveData<List<Element>> {
-        return database.elementDao().getAll().asLiveData()
+    fun allElements(): LiveData<List<Element>>? {
+        return AppDatabase.getDatabase()?.elementDao()?.getAll()?.asLiveData()
     }
 }
