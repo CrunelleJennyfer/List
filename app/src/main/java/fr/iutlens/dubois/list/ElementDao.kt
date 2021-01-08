@@ -1,9 +1,6 @@
 package fr.iutlens.dubois.list
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,7 +11,7 @@ interface ElementDao {
     @Query("SELECT * FROM element WHERE description LIKE :description LIMIT 1")
     suspend fun findByDescription(description: String): Element
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg elements: Element)
 
     @Delete
