@@ -7,7 +7,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "fr.iutlens.dubois.list"
@@ -41,6 +41,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -70,6 +72,17 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
+    def smack= '4.4.0'
+    implementation "org.igniterealtime.smack:smack-android-extensions:$smack"
+    implementation "org.igniterealtime.smack:smack-tcp:$smack"
+    implementation "org.igniterealtime.smack:smack-experimental:$smack"
 
-
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 }
+
+configurations {
+    all*.exclude group: 'xpp3', module: 'xpp3'
+}
+
+
+
