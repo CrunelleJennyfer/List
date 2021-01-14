@@ -10,7 +10,6 @@ import org.jxmpp.jid.Jid
 
 class RosterModel() : ViewModel(), RosterListener {
     val entries = MutableLiveData<List<RosterEntry>>()
-    val selection = MutableLiveData<RosterEntry>()
 
     fun updateConnection() {
         SmackStore.roster?.addRosterListener(this)

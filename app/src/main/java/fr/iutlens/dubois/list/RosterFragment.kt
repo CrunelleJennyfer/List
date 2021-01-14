@@ -17,6 +17,8 @@ import org.jivesoftware.smack.roster.RosterEntry
  */
 class RosterFragment : Fragment() {
     private val rosterModel: RosterModel by activityViewModels()
+    private val messageModel: MessageModel by activityViewModels()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,6 +48,6 @@ class RosterFragment : Fragment() {
     }
 
     fun onRosterEntryClick(entry : RosterEntry){
-        rosterModel.selection.value = entry
+        messageModel.selection.value = entry
     }
 }

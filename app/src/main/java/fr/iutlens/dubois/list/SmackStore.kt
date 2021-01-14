@@ -20,8 +20,17 @@ import java.util.prefs.Preferences
 object SmackStore {
     private var connection : XMPPTCPConnection? = null
 
-    val roster : Roster? get() { return Roster.getInstanceFor(connection) }
+    private var _roster : Roster? = null
+    val roster : Roster? get() {
+        if (_roster == null) _roster =Roster.getInstanceFor(connection)
+        return _roster
+    }
 
+    private var _chatManager : ChatManager? = null
+    val chatManager : ChatManager? get() {
+        if (_chatManager == null) _chatManager = ChatManager.getInstanceFor(connection)
+        return _chatManager
+    }
 
     suspend fun attemptLogin(
         userName: String,
@@ -29,10 +38,13 @@ object SmackStore {
         password: String,
         context: Context
     ) : Boolean {
+        if (connection?.isAuthenticated== true) return true
+        _roster = null
+        _chatManager = null
         Status.update(Result.Processing("Connexion au serveur $domain"))
         try {
             Log.d("AttemptLogin","$userName@$domain ($password)")
-            if (connection?.isAuthenticated== true) return true
+
 
             XMPPTCPConnection.setUseStreamManagementDefault(true)
 
@@ -40,7 +52,6 @@ object SmackStore {
             configBuilder.setUsernameAndPassword(userName, password)
             configBuilder.setPort(5222)
             withContext(Dispatchers.IO){configBuilder.setXmppDomain(domain)}
-
 
             withContext(Dispatchers.IO){
                 connection = XMPPTCPConnection(configBuilder.build()).also {
