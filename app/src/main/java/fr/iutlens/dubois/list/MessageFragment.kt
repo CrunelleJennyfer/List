@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
@@ -26,6 +27,17 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
     private val messageModel: MessageModel by activityViewModels()
     private lateinit var adapter: MessageAdapter
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // This callback will only be called when MyFragment is at least Started.
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        // The callback can be enabled or disabled here or in the lambda
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +76,7 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
 
         // Gestion de l'ouverture du clavier virtuel : on se positionne en bas de la liste
         view.viewTreeObserver.addOnGlobalLayoutListener {
+            if (recyclerViewMessage == null) return@addOnGlobalLayoutListener
             val pos : Int? = (recyclerViewMessage.adapter as MessageAdapter).currentList.lastIndex
             if (pos != null && pos != -1){ recyclerViewMessage.smoothScrollToPosition(pos) }
         }
