@@ -3,12 +3,14 @@ package fr.iutlens.dubois.list
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,9 +36,10 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         recyclerViewMessage.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = MessageAdapter(R.layout.text_row_item, null, null)
+        adapter = MessageAdapter(null, null)
         recyclerViewMessage.adapter = adapter
 
         Status.result.observe(viewLifecycleOwner){
@@ -49,15 +52,21 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
 
             messageList?.removeObservers(viewLifecycleOwner)
             messageList = messageModel.allMessagesWith(it.jid.toString())
-            messageList?.observe(viewLifecycleOwner) {list->
-                Log.d("Adapter","new message")
+            messageList?.observe(viewLifecycleOwner) { list->
+                Log.d("Adapter", "new message")
                 adapter.submitList(list)
+                recyclerViewMessage.smoothScrollToPosition(list.lastIndex)
             }
         }
 
-
-
         editTextMessage.setOnEditorActionListener(this)
+
+        // Gestion de l'ouverture du clavier virtuel : on se positionne en bas de la liste
+        view.viewTreeObserver.addOnGlobalLayoutListener {
+            val pos : Int? = (recyclerViewMessage.adapter as MessageAdapter).currentList.lastIndex
+            if (pos != null && pos != -1){ recyclerViewMessage.smoothScrollToPosition(pos) }
+        }
+
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {

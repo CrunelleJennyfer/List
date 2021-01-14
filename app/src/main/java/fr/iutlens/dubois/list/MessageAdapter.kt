@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class MessageAdapter(private val row_item_layout: Int,
-                    private val onItemClickListener: ((Message) -> Unit)?,
+class MessageAdapter(private val onItemClickListener: ((Message) -> Unit)?,
                     private val onItemLongClickListener: ((Message) -> Boolean)?):
         ListAdapter<Message, MessageAdapter.ViewHolder>(ElementComparator()) {
 
@@ -20,11 +19,21 @@ class MessageAdapter(private val row_item_layout: Int,
         val textView: TextView = view.findViewById(R.id.textView)
     }
 
+    private val  FROM : Int  = 1
+    private val  TO : Int  = 2
+
+
+    override fun getItemViewType(position: Int): Int {
+
+        return if (getItem(position).from_JID != SmackStore.jid) FROM else TO
+    }
+
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
+        val layout = if (viewType == FROM) R.layout.message_from_item else R.layout.message_to_item
         val view = LayoutInflater.from(viewGroup.context)
-                .inflate(row_item_layout, viewGroup, false)
+                .inflate(layout, viewGroup, false)
 
         return ViewHolder(view)
     }
