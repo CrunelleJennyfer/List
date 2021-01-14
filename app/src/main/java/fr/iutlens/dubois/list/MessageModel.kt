@@ -2,13 +2,16 @@ package fr.iutlens.dubois.list
 
 import android.util.Log
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jivesoftware.smack.chat2.Chat
 import org.jivesoftware.smack.chat2.IncomingChatMessageListener
 import org.jivesoftware.smack.chat2.OutgoingChatMessageListener
 import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.packet.MessageBuilder
 import org.jivesoftware.smack.roster.RosterEntry
+import org.jivesoftware.smackx.offline.OfflineMessageManager
 import org.jxmpp.jid.EntityBareJid
 
 
@@ -26,6 +29,21 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
         _chat = null
         SmackStore.chatManager?.addIncomingListener(this)
         SmackStore.chatManager?.addOutgoingListener(this)
+        val offlineMessageManager = SmackStore.offlineMessageManager
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+
+                Log.d("MessageModel", "Offline : " + offlineMessageManager?.messageCount)
+                offlineMessageManager?.messages?.map { fr.iutlens.dubois.list.Message.create(it) }?.let {
+                    insertAll(it)
+                }
+            }
+        }
+
+    }
+
+    private fun insertAll(messages: List<fr.iutlens.dubois.list.Message>) = viewModelScope.launch {
+        AppDatabase.getDatabase()?.messageDao()?.insertAll(*messages.toTypedArray())
     }
 
 
@@ -85,6 +103,5 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
             messageBuilder.body
         ))
     }
-
 
 }

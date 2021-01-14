@@ -14,6 +14,7 @@ import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.roster.Roster
 import org.jivesoftware.smack.tcp.XMPPTCPConnection
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration
+import org.jivesoftware.smackx.offline.OfflineMessageManager
 import org.jxmpp.jid.EntityBareJid
 import java.util.prefs.Preferences
 
@@ -21,10 +22,12 @@ object SmackStore {
     private var connection : XMPPTCPConnection? = null
 
     private var _roster : Roster? = null
+
     val roster : Roster? get() {
         if (_roster == null) _roster =Roster.getInstanceFor(connection)
         return _roster
     }
+
 
     private var _chatManager : ChatManager? = null
     val chatManager : ChatManager? get() {
@@ -32,6 +35,12 @@ object SmackStore {
         Log.d("ChatManager",_chatManager.toString())
         return _chatManager
     }
+
+    val offlineMessageManager : OfflineMessageManager? get(){
+        connection?.let { return OfflineMessageManager.getInstanceFor(connection) }
+        return null
+    }
+
 
     private var _jid : String? = null
 
