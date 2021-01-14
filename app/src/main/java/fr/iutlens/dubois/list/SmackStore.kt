@@ -50,7 +50,7 @@ object SmackStore {
         Status.update(Result.Processing("Connexion au serveur $domain"))
         try {
             Log.d("AttemptLogin","$userName@$domain ($password)")
-
+            Roster.setDefaultSubscriptionMode(Roster.SubscriptionMode.accept_all)
 
             XMPPTCPConnection.setUseStreamManagementDefault(true)
 
@@ -58,6 +58,7 @@ object SmackStore {
             configBuilder.setUsernameAndPassword(userName, password)
             configBuilder.setPort(5222)
             configBuilder.setSendPresence(true)
+            configBuilder.setResource(context.getString(R.string.app_name))
 
             withContext(Dispatchers.IO){
                 configBuilder.setXmppDomain(domain)

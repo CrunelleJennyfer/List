@@ -1,13 +1,16 @@
 package fr.iutlens.dubois.list
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_roster.*
 import org.jivesoftware.smack.roster.RosterEntry
 
@@ -38,16 +41,35 @@ class RosterFragment : Fragment() {
         // le layout R.layout.text_row_item
         // On précise aussi les fonctions à appeler lors d'un clic (court / long) sur un élément
         // (ici : appui long pour retirer de la liste)
-        adapter = RosterAdapter(R.layout.text_row_item, this::onRosterEntryClick, null)
+        adapter = RosterAdapter(R.layout.text_row_item, this::onRosterEntryClick, this::onRosterEntryLongClick)
         recyclerViewRoster.adapter =adapter
 
         rosterModel.entries.observe(viewLifecycleOwner){
             adapter.submitList(it)
+            floatingActionButton.show()
             Log.d("RosterFragment","entries :"+it.size)
+        }
+
+        floatingActionButton.setOnClickListener {
+            val editText =  EditText(requireContext());
+            editText.hint = "Identifiant (ex : example@server.org)"
+            MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Demande d'ami")
+                    .setView(editText)
+                    .setNegativeButton("annuler"){ dialogInterface: DialogInterface, i: Int -> }
+                    .setPositiveButton("envoyer"){ dialogInterface: DialogInterface, i: Int ->
+                        rosterModel.add(editText.text.toString())
+                    }
+                    .create().show()
         }
     }
 
     fun onRosterEntryClick(entry : RosterEntry){
         messageModel.selection.value = entry
+    }
+
+    fun onRosterEntryLongClick(entry :RosterEntry): Boolean {
+        rosterModel.remove(entry)
+        return true
     }
 }

@@ -55,6 +55,7 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
             messageList?.observe(viewLifecycleOwner) { list->
                 Log.d("Adapter", "new message")
                 adapter.submitList(list)
+                if (list.lastIndex != -1)
                 recyclerViewMessage.smoothScrollToPosition(list.lastIndex)
             }
         }
@@ -66,7 +67,6 @@ class MessageFragment : Fragment(), TextView.OnEditorActionListener {
             val pos : Int? = (recyclerViewMessage.adapter as MessageAdapter).currentList.lastIndex
             if (pos != null && pos != -1){ recyclerViewMessage.smoothScrollToPosition(pos) }
         }
-
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
