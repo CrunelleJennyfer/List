@@ -1,8 +1,7 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Timestamp
 
 @Entity
 data class Message(
@@ -13,7 +12,7 @@ data class Message(
                     val timestamp: Long = System.currentTimeMillis()
 ){
     companion object{
-        fun create(message : org.jivesoftware.smack.packet.Message) : Message{
+        fun create(message : org.jivesoftware.smack.packet.Message) : Message {
             return  Message(
                     message.stanzaId,
                     message.from.asBareJid().toString(),

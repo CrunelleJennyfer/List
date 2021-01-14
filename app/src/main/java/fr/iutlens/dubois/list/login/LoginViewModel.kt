@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.ui.login
+package fr.iutlens.dubois.list.login
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 
 import fr.iutlens.dubois.list.R
-import fr.iutlens.dubois.list.SmackStore
+import fr.iutlens.dubois.list.util.SmackStore
 import kotlinx.coroutines.launch
 
 class LoginViewModel() : ViewModel() {
@@ -21,7 +21,7 @@ class LoginViewModel() : ViewModel() {
 
     fun login(username: String, domain: String, password: String, context:Context) {
         viewModelScope.launch {
-            val login =SmackStore.attemptLogin(username, domain, password,context)
+            val login = SmackStore.attemptLogin(username, domain, password,context)
                 if (login) {
                     _loginResult.value =
                         LoginResult(success = LoggedInUserView(displayName = "$username@$domain"))

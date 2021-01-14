@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.util
 
 import androidx.lifecycle.MutableLiveData
 

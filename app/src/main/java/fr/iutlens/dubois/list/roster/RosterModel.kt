@@ -1,12 +1,12 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.roster
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import fr.iutlens.dubois.list.util.SmackStore
 import org.jivesoftware.smack.packet.Presence
 import org.jivesoftware.smack.roster.RosterEntry
 import org.jivesoftware.smack.roster.RosterListener
-import org.jxmpp.jid.BareJid
 import org.jxmpp.jid.Jid
 import org.jxmpp.jid.impl.JidCreate
 
@@ -19,7 +19,7 @@ class RosterModel() : ViewModel(), RosterListener {
     }
 
     private fun update(){
-        SmackStore.roster?.entries?.let { entries.postValue(it.sortedBy {entry -> entry.jid }.toList())
+        SmackStore.roster?.entries?.let { entries.postValue(it.sortedBy { entry -> entry.jid }.toList())
             Log.d("RosterModel","entries : "+it.size)
         }
     }

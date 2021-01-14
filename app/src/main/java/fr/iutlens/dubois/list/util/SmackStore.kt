@@ -1,22 +1,17 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.util.Log
+import fr.iutlens.dubois.list.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.jivesoftware.smack.chat2.Chat
 import org.jivesoftware.smack.chat2.ChatManager
-import org.jivesoftware.smack.chat2.IncomingChatMessageListener
-import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.roster.Roster
 import org.jivesoftware.smack.tcp.XMPPTCPConnection
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration
 import org.jivesoftware.smackx.offline.OfflineMessageManager
-import org.jxmpp.jid.EntityBareJid
-import java.util.prefs.Preferences
 
 object SmackStore {
     private var connection : XMPPTCPConnection? = null
@@ -32,7 +27,7 @@ object SmackStore {
     private var _chatManager : ChatManager? = null
     val chatManager : ChatManager? get() {
         if (_chatManager == null) _chatManager = ChatManager.getInstanceFor(connection)
-        Log.d("ChatManager",_chatManager.toString())
+        Log.d("ChatManager", _chatManager.toString())
         return _chatManager
     }
 
@@ -44,7 +39,8 @@ object SmackStore {
 
     private var _jid : String? = null
 
-    val jid : String? get(){return  _jid}
+    val jid : String? get(){return  _jid
+    }
 
     suspend fun attemptLogin(
         userName: String,

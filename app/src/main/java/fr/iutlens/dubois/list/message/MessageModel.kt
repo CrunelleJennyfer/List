@@ -1,7 +1,9 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.message
 
 import android.util.Log
 import androidx.lifecycle.*
+import fr.iutlens.dubois.list.database.AppDatabase
+import fr.iutlens.dubois.list.util.SmackStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -11,7 +13,6 @@ import org.jivesoftware.smack.chat2.OutgoingChatMessageListener
 import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.packet.MessageBuilder
 import org.jivesoftware.smack.roster.RosterEntry
-import org.jivesoftware.smackx.offline.OfflineMessageManager
 import org.jxmpp.jid.EntityBareJid
 
 
@@ -21,7 +22,7 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
     private var _chat : Chat? = null
 
     val chat : Chat? get(){
-        if (_chat == null) _chat = selection.value?.let{SmackStore.chatManager?.chatWith(it.jid.asEntityBareJidIfPossible())}
+        if (_chat == null) _chat = selection.value?.let{ SmackStore.chatManager?.chatWith(it.jid.asEntityBareJidIfPossible())}
         return _chat
     }
 
@@ -34,7 +35,7 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
             withContext(Dispatchers.IO) {
 
                 Log.d("MessageModel", "Offline : " + offlineMessageManager?.messageCount)
-                offlineMessageManager?.messages?.map { fr.iutlens.dubois.list.Message.create(it) }?.let {
+                offlineMessageManager?.messages?.map { fr.iutlens.dubois.list.database.Message.create(it) }?.let {
                     insertAll(it)
                 }
             }
@@ -42,23 +43,23 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
 
     }
 
-    private fun insertAll(messages: List<fr.iutlens.dubois.list.Message>) = viewModelScope.launch {
+    private fun insertAll(messages: List<fr.iutlens.dubois.list.database.Message>) = viewModelScope.launch {
         AppDatabase.getDatabase()?.messageDao()?.insertAll(*messages.toTypedArray())
     }
 
 
-    fun allMessagesWith(jid : String) : LiveData<List<fr.iutlens.dubois.list.Message> >? {
+    fun allMessagesWith(jid : String) : LiveData<List<fr.iutlens.dubois.list.database.Message> >? {
         return  AppDatabase.getDatabase()?.messageDao()?.getAll(jid)?.asLiveData()
     }
 
 
     fun insert(message: Message) =  viewModelScope.launch {
         AppDatabase.getDatabase()?.messageDao()?.insertAll(
-              fr.iutlens.dubois.list.Message.create(message)
+              fr.iutlens.dubois.list.database.Message.create(message)
         )
     }
 
-    fun insert(message: fr.iutlens.dubois.list.Message)  = viewModelScope.launch {
+    fun insert(message: fr.iutlens.dubois.list.database.Message)  = viewModelScope.launch {
         AppDatabase.getDatabase()?.messageDao()?.insertAll(message)
     }
 /*
@@ -96,11 +97,11 @@ class MessageModel() : ViewModel(), IncomingChatMessageListener, OutgoingChatMes
 
         val jid = SmackStore.jid
         if (jid == null || to == null) return
-        insert(fr.iutlens.dubois.list.Message(
-            messageBuilder.stanzaId,
-            jid,
-            to.asEntityBareJidString(),
-            messageBuilder.body
+        insert(fr.iutlens.dubois.list.database.Message(
+                messageBuilder.stanzaId,
+                jid,
+                to.asEntityBareJidString(),
+                messageBuilder.body
         ))
     }
 

@@ -11,6 +11,11 @@ import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import fr.iutlens.dubois.list.message.MessageModel
+import fr.iutlens.dubois.list.roster.RosterAdapter
+import fr.iutlens.dubois.list.roster.RosterModel
+import fr.iutlens.dubois.list.util.Result
+import fr.iutlens.dubois.list.util.Status
 import kotlinx.android.synthetic.main.fragment_roster.*
 import org.jivesoftware.smack.roster.RosterEntry
 

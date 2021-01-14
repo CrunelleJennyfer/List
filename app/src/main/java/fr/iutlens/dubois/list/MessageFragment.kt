@@ -5,16 +5,19 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import fr.iutlens.dubois.list.database.Message
+import fr.iutlens.dubois.list.message.MessageAdapter
+import fr.iutlens.dubois.list.message.MessageModel
+import fr.iutlens.dubois.list.util.Result
+import fr.iutlens.dubois.list.util.Status
 import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.fragment_roster.*
 

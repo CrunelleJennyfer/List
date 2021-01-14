@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.database
 
 import android.content.Context
 import androidx.room.Database

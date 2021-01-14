@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

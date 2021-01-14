@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.dubois.list.util
 
 sealed class Result(open val description : String){
     data class Success(override val description: String) : Result(description)

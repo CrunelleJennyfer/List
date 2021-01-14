@@ -1,27 +1,22 @@
 package fr.iutlens.dubois.list
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.security.ProviderInstaller
-import fr.iutlens.dubois.list.ui.login.LoginFragment
+import fr.iutlens.dubois.list.database.AppDatabase
+import fr.iutlens.dubois.list.login.LoginFragment
+import fr.iutlens.dubois.list.message.MessageModel
+import fr.iutlens.dubois.list.util.Result
+import fr.iutlens.dubois.list.util.SmackStore
+import fr.iutlens.dubois.list.util.Status
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_roster.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.jivesoftware.smack.android.AndroidSmackInitializer
 
 class MainActivity : AppCompatActivity() {

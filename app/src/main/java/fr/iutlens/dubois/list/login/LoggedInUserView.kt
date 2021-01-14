@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.ui.login
+package fr.iutlens.dubois.list.login
 
 /**
  * User details post authentication that is exposed to the UI

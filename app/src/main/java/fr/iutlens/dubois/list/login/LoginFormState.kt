@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.ui.login
+package fr.iutlens.dubois.list.login
 
 /**
  * Data validation state of the login form.
