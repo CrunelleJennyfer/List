@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Element::class], version = 1)
+@Database(entities = [Message::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun elementDao(): ElementDao
+    abstract fun messageDao(): MessageDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

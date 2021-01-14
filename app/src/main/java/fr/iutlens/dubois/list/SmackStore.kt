@@ -29,8 +29,13 @@ object SmackStore {
     private var _chatManager : ChatManager? = null
     val chatManager : ChatManager? get() {
         if (_chatManager == null) _chatManager = ChatManager.getInstanceFor(connection)
+        Log.d("ChatManager",_chatManager.toString())
         return _chatManager
     }
+
+    private var _jid : String? = null
+
+    val jid : String? get(){return  _jid}
 
     suspend fun attemptLogin(
         userName: String,
@@ -41,6 +46,7 @@ object SmackStore {
         if (connection?.isAuthenticated== true) return true
         _roster = null
         _chatManager = null
+        _jid = null
         Status.update(Result.Processing("Connexion au serveur $domain"))
         try {
             Log.d("AttemptLogin","$userName@$domain ($password)")
@@ -51,9 +57,10 @@ object SmackStore {
             val configBuilder = XMPPTCPConnectionConfiguration.builder()
             configBuilder.setUsernameAndPassword(userName, password)
             configBuilder.setPort(5222)
-            withContext(Dispatchers.IO){configBuilder.setXmppDomain(domain)}
+            configBuilder.setSendPresence(true)
 
             withContext(Dispatchers.IO){
+                configBuilder.setXmppDomain(domain)
                 connection = XMPPTCPConnection(configBuilder.build()).also {
                     it.connect()
                 }
@@ -82,7 +89,8 @@ object SmackStore {
             Status.update(Result.Error("Erreur"))
             return false
         }
-        Status.update(Result.Success("Connexion au compte $userName@$domain réussie"))
+        _jid = "$userName@$domain"
+        Status.update(Result.Success("Connexion au compte $jid réussie"))
         store(userName,domain,password,context)
 
         return true

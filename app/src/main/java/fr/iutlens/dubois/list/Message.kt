@@ -1,0 +1,25 @@
+package fr.iutlens.dubois.list
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.sql.Timestamp
+
+@Entity
+data class Message(
+        @PrimaryKey val id : String,
+                    val from_JID : String,
+                    val to_JID : String,
+                    val text : String,
+                    val timestamp: Long = System.currentTimeMillis()
+){
+    companion object{
+        fun create(message : org.jivesoftware.smack.packet.Message) : Message{
+            return  Message(
+                    message.stanzaId,
+                    message.from.asBareJid().toString(),
+                    message.to.asBareJid().toString(),
+                    message.body.toString()
+            )
+        }
+    }
+}

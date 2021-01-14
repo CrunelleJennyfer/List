@@ -32,14 +32,14 @@ class RosterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Status.result.observe(viewLifecycleOwner){ if (it is Result.Success) rosterModel.updateConnection() }
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewRoster.layoutManager = LinearLayoutManager(requireContext())
 
         // On configure l'adapter, qui prendra les éléments de list, et les affichera en utilisant
         // le layout R.layout.text_row_item
         // On précise aussi les fonctions à appeler lors d'un clic (court / long) sur un élément
         // (ici : appui long pour retirer de la liste)
         adapter = RosterAdapter(R.layout.text_row_item, this::onRosterEntryClick, null)
-        recyclerView.adapter =adapter
+        recyclerViewRoster.adapter =adapter
 
         rosterModel.entries.observe(viewLifecycleOwner){
             adapter.submitList(it)
