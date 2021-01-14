@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.gms.security.ProviderInstaller
 import fr.iutlens.dubois.list.database.AppDatabase
-import fr.iutlens.dubois.list.login.LoginFragment
 import fr.iutlens.dubois.list.message.MessageModel
 import fr.iutlens.dubois.list.util.Result
 import fr.iutlens.dubois.list.util.SmackStore
