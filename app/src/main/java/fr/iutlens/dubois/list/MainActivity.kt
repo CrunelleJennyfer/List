@@ -30,37 +30,41 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        Status.result.observe(this){
-            textViewStatus.text=it.description
-            textViewStatus.visibility =  if (it is Result.Success) View.GONE else View.VISIBLE
-            progressBar.visibility = if (it is Result.Processing) View.VISIBLE else View.GONE
+        //au clic sur button_talk lancer fonction chat()
 
-            if (it is Result.Success){
-                messageModel.updateConnection()
-                val fragment = RosterFragment()
+        fun chat(){
+            Status.result.observe(this){
+                textViewStatus.text=it.description
+                textViewStatus.visibility =  if (it is Result.Success) View.GONE else View.VISIBLE
+                progressBar.visibility = if (it is Result.Processing) View.VISIBLE else View.GONE
+
+                if (it is Result.Success){
+                    messageModel.updateConnection()
+                    val fragment = RosterFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commitAllowingStateLoss()
+                }
+            }
+
+            messageModel.selection.observe(this){
+                Log.d("Selection",it.jid.toString())
+                val fragment = MessageFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack("OpenChat")
+                    .commitAllowingStateLoss()
+            }
+
+
+            if(savedInstanceState == null) { // initial transaction should be wrapped like this
+                val fragment : Fragment = if (SmackStore.neverLogged(this))  LoginFragment() else RosterFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commitAllowingStateLoss()
             }
+            init()
         }
-
-        messageModel.selection.observe(this){
-            Log.d("Selection",it.jid.toString())
-            val fragment = MessageFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                    .addToBackStack("OpenChat")
-                .commitAllowingStateLoss()
-        }
-
-
-        if(savedInstanceState == null) { // initial transaction should be wrapped like this
-            val fragment : Fragment = if (SmackStore.neverLogged(this))  LoginFragment() else RosterFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commitAllowingStateLoss()
-        }
-        init()
     }
 
     private fun init() {
