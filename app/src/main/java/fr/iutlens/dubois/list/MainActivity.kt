@@ -34,9 +34,8 @@ class MainActivity : AppCompatActivity() {
         //au clic sur button_talk lancer fonction chat()
         button_talk.setOnClickListener{
             setContentView(R.layout.activity_main)
+            button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
             Status.result.observe(this){
-                textViewStatus.text=it.description
-                textViewStatus.visibility =  if (it is Result.Success) View.GONE else View.VISIBLE
                 progressBar.visibility = if (it is Result.Processing) View.VISIBLE else View.GONE
 
                 if (it is Result.Success){

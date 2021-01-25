@@ -14,15 +14,12 @@
         android:layout_weight="0"
         android:indeterminate="true" />
 
-    <TextView
-        android:id="@+id/textViewStatus"
+    <Button
+        android:id="@+id/button_acc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="18sp"
-        tools:text="Chargement" />
+        android:text="Retourner à l'acceuil" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -36,4 +33,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_login" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="TextView" />
 </LinearLayout>
