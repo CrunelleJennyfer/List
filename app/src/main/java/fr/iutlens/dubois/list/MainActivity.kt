@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
             button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
         }
 
+        //au clic sur button_story lance page photo
+        button_pic.setOnClickListener {
+            setContentView(R.layout.picture)
+            button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
+        }
+
         //au clic sur button_talk lancer fonction chat()
         button_talk.setOnClickListener{
             setContentView(R.layout.activity_main)
