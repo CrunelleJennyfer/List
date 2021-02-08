@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.login
+package fr.iutlens.crunelle.histoire.login
 
 /**
  * Data validation state of the login form.

@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.crunelle.histoire
 
 import androidx.lifecycle.Observer
 import androidx.annotation.StringRes
@@ -14,9 +14,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import fr.iutlens.dubois.list.R
 
-import fr.iutlens.dubois.list.login.LoggedInUserView
-import fr.iutlens.dubois.list.login.LoginViewModel
+import fr.iutlens.crunelle.histoire.login.LoggedInUserView
+import fr.iutlens.crunelle.histoire.login.LoginViewModel
 
 class LoginFragment : Fragment() {
 

@@ -1,9 +1,9 @@
-package fr.iutlens.dubois.list.roster
+package fr.iutlens.crunelle.histoire.roster
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import fr.iutlens.dubois.list.util.SmackStore
+import fr.iutlens.crunelle.histoire.util.SmackStore
 import org.jivesoftware.smack.packet.Presence
 import org.jivesoftware.smack.roster.RosterEntry
 import org.jivesoftware.smack.roster.RosterListener

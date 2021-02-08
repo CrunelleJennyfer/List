@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.message
+package fr.iutlens.crunelle.histoire.message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.iutlens.dubois.list.R
-import fr.iutlens.dubois.list.database.Message
-import fr.iutlens.dubois.list.util.SmackStore
+import fr.iutlens.crunelle.histoire.database.Message
+import fr.iutlens.crunelle.histoire.util.SmackStore
 
 class MessageAdapter(private val onItemClickListener: ((Message) -> Unit)?,
                      private val onItemLongClickListener: ((Message) -> Boolean)?):

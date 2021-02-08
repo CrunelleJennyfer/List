@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.crunelle.histoire
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,11 +8,12 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.gms.security.ProviderInstaller
-import fr.iutlens.dubois.list.database.AppDatabase
-import fr.iutlens.dubois.list.message.MessageModel
-import fr.iutlens.dubois.list.util.Result
-import fr.iutlens.dubois.list.util.SmackStore
-import fr.iutlens.dubois.list.util.Status
+import fr.iutlens.dubois.list.R
+import fr.iutlens.crunelle.histoire.database.AppDatabase
+import fr.iutlens.crunelle.histoire.message.MessageModel
+import fr.iutlens.crunelle.histoire.util.Result
+import fr.iutlens.crunelle.histoire.util.SmackStore
+import fr.iutlens.crunelle.histoire.util.Status
 import kotlinx.android.synthetic.main.acceuil.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_roster.*

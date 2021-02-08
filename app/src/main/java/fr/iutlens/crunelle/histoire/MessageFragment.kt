@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.crunelle.histoire
 
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import fr.iutlens.dubois.list.database.Message
-import fr.iutlens.dubois.list.message.MessageAdapter
-import fr.iutlens.dubois.list.message.MessageModel
-import fr.iutlens.dubois.list.util.Result
-import fr.iutlens.dubois.list.util.Status
+import fr.iutlens.dubois.list.R
+import fr.iutlens.crunelle.histoire.database.Message
+import fr.iutlens.crunelle.histoire.message.MessageAdapter
+import fr.iutlens.crunelle.histoire.message.MessageModel
+import fr.iutlens.crunelle.histoire.util.Result
+import fr.iutlens.crunelle.histoire.util.Status
 import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.fragment_roster.*
 

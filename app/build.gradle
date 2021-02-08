@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "fr.iutlens.dubois.list"
+        applicationId 'fr.iutlens.crunelle.histoire'
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

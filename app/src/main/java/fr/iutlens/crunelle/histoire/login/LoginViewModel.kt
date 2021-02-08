@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.login
+package fr.iutlens.crunelle.histoire.login
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 
 import fr.iutlens.dubois.list.R
-import fr.iutlens.dubois.list.util.SmackStore
+import fr.iutlens.crunelle.histoire.util.SmackStore
 import kotlinx.coroutines.launch
 
 class LoginViewModel() : ViewModel() {

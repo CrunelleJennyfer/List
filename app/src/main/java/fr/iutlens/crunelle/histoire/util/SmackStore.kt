@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.util
+package fr.iutlens.crunelle.histoire.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

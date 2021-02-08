@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.database
+package fr.iutlens.crunelle.histoire.database
 
 import android.content.Context
 import androidx.room.Database

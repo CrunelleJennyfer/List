@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.login
+package fr.iutlens.crunelle.histoire.login
 
 /**
  * User details post authentication that is exposed to the UI

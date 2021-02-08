@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.crunelle.histoire
 
 import org.junit.Test
 

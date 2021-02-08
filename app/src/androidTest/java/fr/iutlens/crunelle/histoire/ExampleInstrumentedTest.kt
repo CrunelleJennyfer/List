@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list
+package fr.iutlens.crunelle.histoire
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
