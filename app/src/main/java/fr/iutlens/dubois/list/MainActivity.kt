@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.gms.security.ProviderInstaller
@@ -21,63 +22,74 @@ import org.jivesoftware.smack.android.AndroidSmackInitializer
 
 class MainActivity : AppCompatActivity() {
 
+    private var savedInstanceState: Bundle?=null
     private val messageModel: MessageModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.savedInstanceState=savedInstanceState
 
         // Décommentez la ligne suivante pour vider les informations de login au prochain lancement
 //        getSharedPreferences("login", MODE_PRIVATE).edit().clear().apply()
 
-        setContentView(R.layout.acceuil)
+        SetContentAcceuil()
 
-        //au clic sur button_story lance page histoire
-        button_story.setOnClickListener {
-            setContentView(R.layout.story)
-            button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
-        }
+    }
 
-        //au clic sur button_story lance page photo
-        button_pic.setOnClickListener {
-            setContentView(R.layout.picture)
-            button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
-        }
+    private fun SetContentTalk(){
+                setContentView(R.layout.activity_main)
+                findViewById<Button>(R.id.button_acc).setOnClickListener{SetContentAcceuil()}
+                Status.result.observe(this) {
+                    progressBar.visibility = if (it is Result.Processing) View.VISIBLE else View.GONE
 
-        //au clic sur button_talk lancer fonction chat()
-        button_talk.setOnClickListener{
-            setContentView(R.layout.activity_main)
-            button_acc.setOnClickListener{setContentView(R.layout.acceuil)}
-            Status.result.observe(this){
-                progressBar.visibility = if (it is Result.Processing) View.VISIBLE else View.GONE
+                    if (it is Result.Success) {
+                        messageModel.updateConnection()
+                        val fragment = RosterFragment()
+                        supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, fragment)
+                                .commitAllowingStateLoss()
+                    }
+                }
 
-                if (it is Result.Success){
-                    messageModel.updateConnection()
-                    val fragment = RosterFragment()
+                messageModel.selection.observe(this) {
+                    Log.d("Selection", it.jid.toString())
+                    val fragment = MessageFragment()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .addToBackStack("OpenChat")
+                            .commitAllowingStateLoss()
+                }
+
+
+                if (savedInstanceState == null) { // initial transaction should be wrapped like this
+                    val fragment: Fragment = if (SmackStore.neverLogged(this)) LoginFragment() else RosterFragment()
                     supportFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .commitAllowingStateLoss()
                 }
+                init()
             }
 
-            messageModel.selection.observe(this){
-                Log.d("Selection",it.jid.toString())
-                val fragment = MessageFragment()
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .addToBackStack("OpenChat")
-                        .commitAllowingStateLoss()
-            }
+    private fun SetContentPicture(){
+        setContentView(R.layout.picture)
+        findViewById<Button>(R.id.button_acc).setOnClickListener{SetContentAcceuil()}
+    }
 
+    private fun SetContentStory(){
+        setContentView(R.layout.story)
+        findViewById<Button>(R.id.button_acc).setOnClickListener{SetContentAcceuil()}
+    }
 
-            if(savedInstanceState == null) { // initial transaction should be wrapped like this
-                val fragment : Fragment = if (SmackStore.neverLogged(this))  LoginFragment() else RosterFragment()
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .commitAllowingStateLoss()
-            }
-            init()
-        }
+    private fun SetContentAcceuil() {
+        setContentView(R.layout.acceuil)
+        //au clic sur button_story lance page histoire
+        findViewById<Button>(R.id.button_story).setOnClickListener { SetContentStory() }
 
+        //au clic sur button_story lance page photo
+        findViewById<Button>(R.id.button_pic).setOnClickListener { SetContentPicture() }
+
+        //au clic sur button_talk lancer fonction chat()
+        findViewById<Button>(R.id.button_talk).setOnClickListener { SetContentTalk() }
     }
 
     private fun init() {
