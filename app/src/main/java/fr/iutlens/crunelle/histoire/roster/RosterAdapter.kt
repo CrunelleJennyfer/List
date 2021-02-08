@@ -1,4 +1,4 @@
-package fr.iutlens.dubois.list.roster
+package fr.iutlens.crunelle.histoire.roster
 
 import android.view.LayoutInflater
 import android.view.View
