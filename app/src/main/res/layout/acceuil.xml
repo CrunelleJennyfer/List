@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/evin">
 
     <Button
         android:id="@+id/button_talk"
@@ -12,6 +12,7 @@
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="80dp"
+        android:background="#3C3F41"
         android:text="En discuter ?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,6 +26,7 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="140dp"
+        android:background="#2B2B2B"
         android:text="L'histoire"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -44,12 +46,15 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="233dp"
-        android:layout_height="69dp"
+        android:layout_width="366dp"
+        android:layout_height="61dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="cursive"
         android:text="Histoire d'Evin"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_story"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

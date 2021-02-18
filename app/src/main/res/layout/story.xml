@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="239dp"
-        android:layout_height="43dp"
+        android:layout_width="312dp"
+        android:layout_height="51dp"
         android:layout_marginTop="48dp"
         android:text="L'histoire de la ville"
         android:textAlignment="center"
@@ -26,18 +26,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="324dp"
-        android:layout_height="554dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginBottom="34dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="contenue arrivera bientot "
+    <ScrollView
+        android:layout_width="387dp"
+        android:layout_height="595dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:text="Souvenir de la guerre 39-45 "
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textLongMessage|textMultiLine"
+                android:text="
+    Mes frère et moi-même éions toujours suspendus aux lèvres de nos parents quand ils racontaient
+ce qu'ils avaient vécu pendant la guerre 1914-1918: les séparations, les évacuations, les privations, les blessures, les deuils...
+\n
+    Aussi, en septembre 1939, à la déclaration de la seconde guerre mondiale, étions-nous très anxieux: qu'allait-il se passer?
+\n
+    Comme je devais faire ma communio solonnelle en 1940, mes parents avaient fait une provision de vin.
+Pour ne pas laisser les bouteilles entre les mains de l'envahisseur, en cas d'occupation, mon père,Eugène MERESSE, enferma le vin à la cave dans une réserve maçonnée et murée.
+\n
+    En mai 1940, après l'invasion de la BELGIQUE par les Allemand, mon père prit la décision d'évacuer, comme ses parents l'avaient fait en 1914.
+Un chariot culivateur, attelé de deux chevaux empruntés à la Compagnie des Mines de Dourges, fut bientôt prêt à partir.
+Hélas! les Allemands, à la fin du mois de mai, avaient déjà envahi une grande partie du NORD et du PAS-DE-CALAIS. Que faire?
+Où aller, alors que les routes étaient encombrées de réfugiés? Nous attendîmes plusieurs jours pendant lesquels la réserve de vin s'épuisait lentement...
+et décidâmes enfin de rester sur place après avoir décroché les attelages et rentré le chargement du chariot.
+\n
+    Les Allemands arrivèrent bientôt à EVIN MALMAISON, s'installèrent dans les maisons inoccupées.
+Mon père, ancien combattant de 1914, était très en colère quand il voyait les soldats ennemis prendre les légumes des jardins et les volailles
+dans les basses-cours des maisons voisines. Un jour, il entra précipitamment dans le 'Café du CENTRE' (où s'est implanté aujourd'hui l'auto-école et avant ça la Pharmacie LEMAIRE)
+ et reprit aux soldats les volailles (dont un coq de combat) déjà tués pour un festin en leurs disant: moi, j'ai des enfants à nourrir!
+ 'Le Café du CENTRE' était tenu par les époux Oscar DEHAIES-Augustine MERESSE. Cette dernière était la soeur d'Eugène MERESSE." />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
